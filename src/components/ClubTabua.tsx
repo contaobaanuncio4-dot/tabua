@@ -85,7 +85,10 @@ const ClubTabua = () => {
               </li>
             </ul>
             
-            <Button className="w-full bg-primary hover:bg-primary/90">
+            <Button 
+              className="w-full bg-primary hover:bg-primary/90"
+              onClick={() => window.open('https://pay.tabuademinas.fun/68876277ed44f872dda1f5f6', '_blank')}
+            >
               Assine Aqui
             </Button>
           </CardContent>
@@ -132,7 +135,11 @@ const ClubTabua = () => {
               </li>
             </ul>
             
-            <Button variant="premium" className="w-full">
+            <Button 
+              variant="premium" 
+              className="w-full"
+              onClick={() => window.open('https://pay.tabuademinas.fun/68876277ed44f872dda1f5f6', '_blank')}
+            >
               Assine Aqui
             </Button>
           </CardContent>
