@@ -1,289 +1,351 @@
 import { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 
+interface ProductOption {
+  weight: '500g' | '1kg';
+  promotionalPrice: number;
+  originalPrice: number;
+  checkoutUrl: string;
+}
+
 interface Product {
   id: string;
   name: string;
   image: string;
-  promotionalPrice: number;
-  originalPrice: number;
   category: 'queijos' | 'doces';
   badge?: string;
+  options: ProductOption[];
 }
 
 interface ProductListProps {
   category: 'queijos' | 'doces';
 }
 
-// Dados dos produtos conforme fornecidos
+// Dados dos produtos com opções de peso
 const PRODUCTS: Product[] = [
   // Queijos
   {
     id: 'q1',
     name: 'Queijo MinasBri',
     image: 'https://i.imgur.com/90GxB2f.jpeg',
-    promotionalPrice: 33.90,
-    originalPrice: 64.90,
     category: 'queijos',
-    badge: 'Mais Vendido'
+    badge: 'Mais Vendido',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 33.90,
+        originalPrice: 64.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886ed52ed44f872dda1bc08'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 65.90,
+        originalPrice: 120.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886ed70cbb7096b50749f31'
+      }
+    ]
   },
   {
     id: 'q2',
-    name: 'Kit 4 Queijos de Alagoa-MG (parmesão) 475g',
+    name: 'Kit 4 Queijos de Alagoa-MG (parmesão)',
     image: 'https://i.imgur.com/HUMvcjf.png',
-    promotionalPrice: 53.90,
-    originalPrice: 100.90,
-    category: 'queijos'
+    category: 'queijos',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 53.90,
+        originalPrice: 100.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886ed97cbb7096b50749f69'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 105.90,
+        originalPrice: 195.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886edc8ed44f872dda1bc50'
+      }
+    ]
   },
   {
     id: 'q3',
     name: 'Queijo Canastra Meia Cura',
     image: 'https://i.imgur.com/3FW0QQo.png',
-    promotionalPrice: 69.00,
-    originalPrice: 94.90,
-    category: 'queijos'
+    category: 'queijos',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 69.00,
+        originalPrice: 94.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886d638cbb7096b507489af'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 135.00,
+        originalPrice: 185.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886d64acbb7096b507489dc'
+      }
+    ]
   },
   {
     id: 'q4',
-    name: 'Queijo Gorgonzola Duplo Creme - Meia Peça',
+    name: 'Queijo Gorgonzola Duplo Creme',
     image: 'https://i.imgur.com/GKEwp5Z.png',
-    promotionalPrice: 49.90,
-    originalPrice: 89.90,
-    category: 'queijos'
+    category: 'queijos',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 49.90,
+        originalPrice: 89.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886d60eed44f872dda1a937'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 95.90,
+        originalPrice: 175.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886d625ed44f872dda1a95d'
+      }
+    ]
   },
   {
     id: 'q5',
     name: 'Queijo Tipo Camembert',
     image: 'https://i.imgur.com/lUEzXTg.png',
-    promotionalPrice: 34.90,
-    originalPrice: 61.90,
-    category: 'queijos'
+    category: 'queijos',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 34.90,
+        originalPrice: 61.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886d5e3cbb7096b5074896a'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 65.90,
+        originalPrice: 120.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886d5cbcbb7096b50748931'
+      }
+    ]
   },
   {
     id: 'q6',
     name: 'Queijo Figueira',
     image: 'https://i.imgur.com/50TuZcl.png',
-    promotionalPrice: 39.90,
-    originalPrice: 72.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q7',
-    name: 'Parmesão Meia Cura',
-    image: 'https://i.imgur.com/lJzrIPt.png',
-    promotionalPrice: 44.90,
-    originalPrice: 74.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q8',
-    name: 'Queijo do Jordão',
-    image: 'https://i.imgur.com/IIOVRsg.png',
-    promotionalPrice: 36.90,
-    originalPrice: 80.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q9',
-    name: 'Queijo Lua Cheia',
-    image: 'https://i.imgur.com/Hiizu7l.png',
-    promotionalPrice: 45.90,
-    originalPrice: 89.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q10',
-    name: 'Canastra Santiago',
-    image: 'https://i.imgur.com/WTEH3EG.png',
-    promotionalPrice: 24.90,
-    originalPrice: 45.00,
-    category: 'queijos'
-  },
-  {
-    id: 'q11',
-    name: 'Queijo Chabichou',
-    image: 'https://i.imgur.com/InCGS2i.png',
-    promotionalPrice: 49.90,
-    originalPrice: 84.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q12',
-    name: 'Queijo Benzinho',
-    image: 'https://i.imgur.com/GhkwDOz.png',
-    promotionalPrice: 48.90,
-    originalPrice: 76.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q13',
-    name: 'Queijo Gorgonzola Duplo Creme - Peça inteira',
-    image: 'https://i.imgur.com/yrLmjZF.png',
-    promotionalPrice: 78.90,
-    originalPrice: 133.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q14',
-    name: 'Queijo da Santa - 650g',
-    image: 'https://i.imgur.com/AP6tuzN.png',
-    promotionalPrice: 68.90,
-    originalPrice: 134.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q15',
-    name: 'Queijo Bucaneve - 200g',
-    image: 'https://i.imgur.com/N1LqA2N.png',
-    promotionalPrice: 42.90,
-    originalPrice: 80.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q16',
-    name: 'Queijo Morro Azul - 120g',
-    image: 'https://i.imgur.com/DZEoLC7.png',
-    promotionalPrice: 36.90,
-    originalPrice: 60.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q17',
-    name: 'Queijo Tipo Comté - 320g',
-    image: 'https://i.imgur.com/R2SqLyb.png',
-    promotionalPrice: 36.90,
-    originalPrice: 68.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q18',
-    name: 'Queijo Estação Mantiqueira de minas - 500g',
-    image: 'https://i.imgur.com/2pn5qcP.png',
-    promotionalPrice: 58.90,
-    originalPrice: 100.90,
-    category: 'queijos'
-  },
-  {
-    id: 'q19',
-    name: 'Queijo Tipo Gruyere - 350g',
-    image: 'https://i.imgur.com/LS1tjBN.png',
-    promotionalPrice: 42.90,
-    originalPrice: 77.90,
-    category: 'queijos'
+    category: 'queijos',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 39.90,
+        originalPrice: 72.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886d58eed44f872dda1a862'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 75.90,
+        originalPrice: 140.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886d5b1ed44f872dda1a8a2'
+      }
+    ]
   },
   // Doces
   {
     id: 'd1',
     name: 'Doce de Pingo de Leite com Castanha de Caju',
     image: 'https://i.imgur.com/jcNfoUS.png',
-    promotionalPrice: 34.90,
-    originalPrice: 60.90,
     category: 'doces',
-    badge: 'Mais Vendido'
+    badge: 'Mais Vendido',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 34.90,
+        originalPrice: 60.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886ca54cbb7096b507479e0'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 65.90,
+        originalPrice: 115.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886ca6aed44f872dda1984e'
+      }
+    ]
   },
   {
     id: 'd2',
     name: 'Doce de Cocada com Abacaxi',
     image: 'https://i.imgur.com/bf7uIkJ.png',
-    promotionalPrice: 33.90,
-    originalPrice: 46.00,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 33.90,
+        originalPrice: 46.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886ca05cbb7096b50747965'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 62.90,
+        originalPrice: 85.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886ca2eed44f872dda197d4'
+      }
+    ]
   },
   {
     id: 'd3',
     name: 'Doce Prestígio mineiro',
     image: 'https://i.imgur.com/IdAa9ng.png',
-    promotionalPrice: 24.90,
-    originalPrice: 41.90,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 24.90,
+        originalPrice: 41.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c923cbb7096b507477fb'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 45.90,
+        originalPrice: 78.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c955cbb7096b50747857'
+      }
+    ]
   },
   {
     id: 'd4',
     name: 'Doce de Cocada com Maracujá',
     image: 'https://i.imgur.com/p6wwtEt.png',
-    promotionalPrice: 32.90,
-    originalPrice: 43.90,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 32.90,
+        originalPrice: 43.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c8f7ed44f872dda195d0'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 59.90,
+        originalPrice: 80.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c909ed44f872dda19605'
+      }
+    ]
   },
   {
     id: 'd5',
     name: 'Doce casadinho',
     image: 'https://i.imgur.com/WoKuC7T.png',
-    promotionalPrice: 27.90,
-    originalPrice: 45.00,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 27.90,
+        originalPrice: 45.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c8afcbb7096b50747730'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 52.90,
+        originalPrice: 85.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c8c6cbb7096b5074774c'
+      }
+    ]
   },
   {
     id: 'd6',
     name: 'Doce de leite',
     image: 'https://i.imgur.com/7l56V5m.png',
-    promotionalPrice: 22.90,
-    originalPrice: 40.00,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 22.90,
+        originalPrice: 40.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c86ecbb7096b507476e5'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 42.90,
+        originalPrice: 75.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c88fed44f872dda19466'
+      }
+    ]
   },
   {
     id: 'd7',
     name: 'Doce de leite com café',
     image: 'https://i.imgur.com/dEVNMOd.png',
-    promotionalPrice: 26.90,
-    originalPrice: 45.00,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 26.90,
+        originalPrice: 45.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c837cbb7096b5074769f'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 49.90,
+        originalPrice: 85.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c854ed44f872dda19376'
+      }
+    ]
   },
   {
     id: 'd8',
     name: 'Doce de Pingo de Leite com Amendoim',
     image: 'https://i.imgur.com/o74KsOo.png',
-    promotionalPrice: 58.90,
-    originalPrice: 80.90,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 58.90,
+        originalPrice: 80.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c7e4ed44f872dda1927c'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 110.90,
+        originalPrice: 155.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c7fecbb7096b50747636'
+      }
+    ]
   },
   {
     id: 'd9',
     name: 'Doce de Cocada com Ameixa',
     image: 'https://i.imgur.com/Rt7nWy8.png',
-    promotionalPrice: 32.90,
-    originalPrice: 43.90,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 32.90,
+        originalPrice: 43.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c649cbb7096b507472aa'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 59.90,
+        originalPrice: 80.90,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c7a3ed44f872dda19222'
+      }
+    ]
   },
   {
     id: 'd10',
     name: 'Doce de Abóbora com Coco',
     image: 'https://i.imgur.com/glyYwmb.png',
-    promotionalPrice: 27.90,
-    originalPrice: 44.00,
-    category: 'doces'
-  },
-  {
-    id: 'd11',
-    name: 'Doce Quebra-Queixo',
-    image: 'https://i.imgur.com/ded8MyO.png',
-    promotionalPrice: 36.90,
-    originalPrice: 60.90,
-    category: 'doces'
-  },
-  {
-    id: 'd12',
-    name: 'Doce de leite Dom',
-    image: 'https://i.imgur.com/lHpdysA.png',
-    promotionalPrice: 44.90,
-    originalPrice: 80.90,
-    category: 'doces'
-  },
-  {
-    id: 'd13',
-    name: 'Goiabada cremosa Tia Carla',
-    image: 'https://i.imgur.com/uJPxQ3F.png',
-    promotionalPrice: 32.90,
-    originalPrice: 60.90,
-    category: 'doces'
-  },
-  {
-    id: 'd14',
-    name: 'Doce de banana zero açúcar',
-    image: 'https://i.imgur.com/dOM2hia.png',
-    promotionalPrice: 24.90,
-    originalPrice: 40.00,
-    category: 'doces'
+    category: 'doces',
+    options: [
+      {
+        weight: '500g',
+        promotionalPrice: 27.90,
+        originalPrice: 44.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c6fecbb7096b50747452'
+      },
+      {
+        weight: '1kg',
+        promotionalPrice: 52.90,
+        originalPrice: 82.00,
+        checkoutUrl: 'https://pay.tabuademinas.fun/6886c782ed44f872dda191bd'
+      }
+    ]
   }
 ];
 
