@@ -5,7 +5,6 @@ interface ProductOption {
   weight: '500g' | '1kg';
   promotionalPrice: number;
   originalPrice: number;
-  checkoutUrl: string;
 }
 
 interface Product {
@@ -35,13 +34,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 33.90,
         originalPrice: 64.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886ed52ed44f872dda1bc08'
       },
       {
         weight: '1kg',
         promotionalPrice: 65.90,
         originalPrice: 120.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886ed70cbb7096b50749f31'
       }
     ]
   },
@@ -55,13 +52,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 53.90,
         originalPrice: 100.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886ed97cbb7096b50749f69'
       },
       {
         weight: '1kg',
         promotionalPrice: 105.90,
         originalPrice: 195.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886edc8ed44f872dda1bc50'
       }
     ]
   },
@@ -75,13 +70,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 69.00,
         originalPrice: 94.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886d638cbb7096b507489af'
       },
       {
         weight: '1kg',
         promotionalPrice: 135.00,
         originalPrice: 185.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886d64acbb7096b507489dc'
       }
     ]
   },
@@ -95,13 +88,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 49.90,
         originalPrice: 89.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886d60eed44f872dda1a937'
       },
       {
         weight: '1kg',
         promotionalPrice: 95.90,
         originalPrice: 175.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886d625ed44f872dda1a95d'
       }
     ]
   },
@@ -115,13 +106,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 34.90,
         originalPrice: 61.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886d5e3cbb7096b5074896a'
       },
       {
         weight: '1kg',
         promotionalPrice: 65.90,
         originalPrice: 120.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886d5cbcbb7096b50748931'
       }
     ]
   },
@@ -135,13 +124,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 39.90,
         originalPrice: 72.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886d58eed44f872dda1a862'
       },
       {
         weight: '1kg',
         promotionalPrice: 75.90,
         originalPrice: 140.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886d5b1ed44f872dda1a8a2'
       }
     ]
   },
@@ -157,13 +144,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 34.90,
         originalPrice: 60.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886ca54cbb7096b507479e0'
       },
       {
         weight: '1kg',
         promotionalPrice: 65.90,
         originalPrice: 115.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886ca6aed44f872dda1984e'
       }
     ]
   },
@@ -177,13 +162,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 33.90,
         originalPrice: 46.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886ca05cbb7096b50747965'
       },
       {
         weight: '1kg',
         promotionalPrice: 62.90,
         originalPrice: 85.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886ca2eed44f872dda197d4'
       }
     ]
   },
@@ -197,13 +180,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 24.90,
         originalPrice: 41.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c923cbb7096b507477fb'
       },
       {
         weight: '1kg',
         promotionalPrice: 45.90,
         originalPrice: 78.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c955cbb7096b50747857'
       }
     ]
   },
@@ -217,13 +198,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 32.90,
         originalPrice: 43.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c8f7ed44f872dda195d0'
       },
       {
         weight: '1kg',
         promotionalPrice: 59.90,
         originalPrice: 80.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c909ed44f872dda19605'
       }
     ]
   },
@@ -237,13 +216,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 27.90,
         originalPrice: 45.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c8afcbb7096b50747730'
       },
       {
         weight: '1kg',
         promotionalPrice: 52.90,
         originalPrice: 85.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c8c6cbb7096b5074774c'
       }
     ]
   },
@@ -257,13 +234,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 22.90,
         originalPrice: 40.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c86ecbb7096b507476e5'
       },
       {
         weight: '1kg',
         promotionalPrice: 42.90,
         originalPrice: 75.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c88fed44f872dda19466'
       }
     ]
   },
@@ -277,13 +252,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 26.90,
         originalPrice: 45.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c837cbb7096b5074769f'
       },
       {
         weight: '1kg',
         promotionalPrice: 49.90,
         originalPrice: 85.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c854ed44f872dda19376'
       }
     ]
   },
@@ -297,13 +270,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 58.90,
         originalPrice: 80.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c7e4ed44f872dda1927c'
       },
       {
         weight: '1kg',
         promotionalPrice: 110.90,
         originalPrice: 155.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c7fecbb7096b50747636'
       }
     ]
   },
@@ -317,13 +288,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 32.90,
         originalPrice: 43.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c649cbb7096b507472aa'
       },
       {
         weight: '1kg',
         promotionalPrice: 59.90,
         originalPrice: 80.90,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c7a3ed44f872dda19222'
       }
     ]
   },
@@ -337,13 +306,11 @@ const PRODUCTS: Product[] = [
         weight: '500g',
         promotionalPrice: 27.90,
         originalPrice: 44.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c6fecbb7096b50747452'
       },
       {
         weight: '1kg',
         promotionalPrice: 52.90,
         originalPrice: 82.00,
-        checkoutUrl: 'https://pay.tabuademinas.fun/6886c782ed44f872dda191bd'
       }
     ]
   }
