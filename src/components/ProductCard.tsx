@@ -43,6 +43,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       image: product.image,
       weight: selectedOption.weight,
       unitPrice: selectedOption.promotionalPrice,
+      originalUnitPrice: selectedOption.originalPrice,
       quantity: 1,
     });
     toast({ title: 'Adicionado ao carrinho', description: `${product.name} (${selectedOption.weight})` });

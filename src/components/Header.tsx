@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Menu, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import CartSheet from '@/components/CartSheet';
+import { useCart } from '@/contexts/CartContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { state } = useCart();
+  const totalItems = useMemo(() => state.items.reduce((n, i) => n + i.quantity, 0), [state.items]);
 
   return (
     <header className="bg-background border-b border-border">
@@ -36,12 +40,14 @@ const Header = () => {
           </div>
 
           {/* Carrinho */}
-          <Button variant="ghost" size="icon" className="relative">
-            <ShoppingCart className="h-6 w-6" />
-            <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              0
-            </span>
-          </Button>
+          <CartSheet>
+            <Button variant="ghost" size="icon" className="relative">
+              <ShoppingCart className="h-6 w-6" />
+              <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {totalItems}
+              </span>
+            </Button>
+          </CartSheet>
         </div>
 
         {/* Menu mobile */}

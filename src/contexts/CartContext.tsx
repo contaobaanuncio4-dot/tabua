@@ -5,7 +5,8 @@ export type CartItem = {
   name: string;
   image: string;
   weight: '500g' | '1kg';
-  unitPrice: number;
+  unitPrice: number; // promotional price
+  originalUnitPrice: number;
   quantity: number;
 };
 
@@ -26,6 +27,7 @@ const CartContext = createContext<{
   updateQuantity: (id: string, weight: CartItem['weight'], quantity: number) => void;
   clear: () => void;
   subtotal: number;
+  originalSubtotal: number;
 }>({
   state: { items: [] },
   addItem: () => {},
@@ -33,6 +35,7 @@ const CartContext = createContext<{
   updateQuantity: () => {},
   clear: () => {},
   subtotal: 0,
+  originalSubtotal: 0,
 });
 
 function cartReducer(state: CartState, action: CartAction): CartState {
@@ -78,6 +81,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [state.items]
   );
 
+  const originalSubtotal = useMemo(
+    () => state.items.reduce((sum, i) => sum + i.originalUnitPrice * i.quantity, 0),
+    [state.items]
+  );
+
   const value = useMemo(
     () => ({
       state,
@@ -87,8 +95,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'UPDATE_QUANTITY', id, weight, quantity }),
       clear: () => dispatch({ type: 'CLEAR' }),
       subtotal,
+      originalSubtotal,
     }),
-    [state, subtotal]
+    [state, subtotal, originalSubtotal]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

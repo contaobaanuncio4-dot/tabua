@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import PromoBanner from '@/components/PromoBanner';
 import ProductList from '@/components/ProductList';
 import ClubTabua from '@/components/ClubTabua';
+import AddToCartBar from '@/components/AddToCartBar';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('doces');
@@ -76,9 +77,10 @@ const Index = () => {
             <a href="#" className="hover:underline">Política de Privacidade</a>
           </div>
         </div>
-      </footer>
-    </div>
-  );
+             </footer>
+       <AddToCartBar />
+     </div>
+   );
 };
 
 export default Index;
