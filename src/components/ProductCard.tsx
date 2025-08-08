@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/components/ui/use-toast';
 
 interface ProductOption {
   weight: '500g' | '1kg';
   promotionalPrice: number;
   originalPrice: number;
-  checkoutUrl: string;
 }
 
 interface Product {
@@ -32,8 +33,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
     ((selectedOption.originalPrice - selectedOption.promotionalPrice) / selectedOption.originalPrice) * 100
   );
 
-  const handleCheckout = () => {
-    window.open(selectedOption.checkoutUrl, '_blank');
+  const { addItem } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      weight: selectedOption.weight,
+      unitPrice: selectedOption.promotionalPrice,
+      quantity: 1,
+    });
+    toast({ title: 'Adicionado ao carrinho', description: `${product.name} (${selectedOption.weight})` });
   };
 
   return (
@@ -94,11 +106,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
           
           <Button 
-            onClick={handleCheckout}
+            onClick={handleAddToCart}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground transition-colors"
             size="sm"
           >
-            Comprar Agora
+            Adicionar ao carrinho
           </Button>
         </div>
       </CardContent>

@@ -71,3 +71,21 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Backend PIX (Blackcat)
+
+- Crie um arquivo `.env` na raiz com:
+
+```
+BLACKCAT_AUTH_BASE64=SEU_TOKEN_EM_BASE64
+```
+
+- Instale dependências e rode os servidores:
+
+```
+npm i
+npm run dev          # inicia Vite em :8080
+npm run server       # inicia API local em :8787
+```
+
+O Vite está configurado com proxy `'/api' -> http://localhost:8787`, então o frontend chama `/api/create-pix` diretamente.
